@@ -1,18 +1,24 @@
+import { routing } from '../app.roting';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { GKCHeatMapComponent } from './GKCHeatMap/GKCHeatMap.component';
+import { DebouceComponent } from './debouce/debouce.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GKCHeatMapComponent,
+    DebouceComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing,
   ],
   providers: [],
   bootstrap: [AppComponent]

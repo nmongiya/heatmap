@@ -1,6 +1,6 @@
 {
   "name": "gkc-heatmap",
-  "version": "0.0.0",
+  "version": "0.0.4",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/common": "^2.4.0",
     "@angular/compiler": "^2.4.0",

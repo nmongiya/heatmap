@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+.item {
+  border:4px solid white;
+  height:120px;
+  width:100%;
+  margin-bottom:50px;
+  background:#333;
+  padding:20px;
+}
+
+
+
+.color-1 { border-color: #9BFFBB}
+.color-2 { border-color: #B9C6FF}
+.color-3 { border-color: #FFA3D8}
+.color-4 { border-color: #FF8E9B}
