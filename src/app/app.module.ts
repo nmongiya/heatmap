@@ -7,12 +7,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { GKCHeatMapComponent } from './GKCHeatMap/GKCHeatMap.component';
 import { DebouceComponent } from './debouce/debouce.component';
+import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GKCHeatMapComponent,
-    DebouceComponent
+    DebouceComponent,
+    DynamicComponentComponent
   ],
   imports: [
     BrowserModule,
