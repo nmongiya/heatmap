@@ -2,6 +2,8 @@ import { document } from '@angular/platform-browser/src/facade/browser';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeatMapVO } from './vo/HeatMapVO';
+import { HelloWorldComponentComponent } from './hello-world-component/hello-world-component.component';
+import { WorldHelloComponentComponent } from './world-hello-component/world-hello-component.component';
 
 
 @Component({
@@ -16,8 +18,27 @@ export class AppComponent implements OnInit {
   title = 'app works!';
 
   private _heatMapData = [];
+  componentData = null;
 
- __defaultMeasure;
+  __defaultMeasure;
+
+  createHelloWorldComponent() {
+    this.componentData = {
+      component: HelloWorldComponentComponent,
+      inputs: {
+        showNum: 9
+      }
+    };
+  }
+
+  createWorldHelloComponent() {
+    this.componentData = {
+      component: WorldHelloComponentComponent,
+      inputs: {
+        showNum: 2
+      }
+    };
+  }
 
   ngOnInit() {
 
@@ -81,7 +102,7 @@ export class AppComponent implements OnInit {
     _heatMapDataVO.Temperature = 18.26;
     this._heatMapData.push(_heatMapDataVO);
 
-    this.__defaultMeasure =  'Temperature';
+    this.__defaultMeasure = 'Temperature';
 
   }
 }

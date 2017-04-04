@@ -8,13 +8,17 @@ import { AppComponent } from './app.component';
 import { GKCHeatMapComponent } from './GKCHeatMap/GKCHeatMap.component';
 import { DebouceComponent } from './debouce/debouce.component';
 import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
+import { HelloWorldComponentComponent } from './hello-world-component/hello-world-component.component';
+import { WorldHelloComponentComponent } from './world-hello-component/world-hello-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GKCHeatMapComponent,
     DebouceComponent,
-    DynamicComponentComponent
+    DynamicComponentComponent,
+    HelloWorldComponentComponent,
+    WorldHelloComponentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,10 @@
 <div>
-    <gkc-heatmap [heatMapData]="_heatMapData"  ></gkc-heatmap>
-    <app-debouce></app-debouce>
+    <!--<gkc-heatmap [heatMapData]="_heatMapData"  ></gkc-heatmap>-->
+    <!--<app-debouce></app-debouce>-->
+    <button (click)="createHelloWorldComponent()">Create Hello World</button>
+    <button (click)="createWorldHelloComponent()">Create World Hello</button>
+
+    <app-dynamic-component [componentData]="componentData"></app-dynamic-component>
 </div>
 
 

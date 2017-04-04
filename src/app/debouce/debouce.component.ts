@@ -47,12 +47,13 @@ export class DebouceComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+   
      Observable.fromEvent(window, 'scroll')
       .throttleTime(200)
       .subscribe(e => {
         //console.log('scroll')
         let pixelsFromWindowBottomToBottom: any;
-        console.log('window.innerHeight-->' + window.innerHeight);
+        // console.log('window.innerHeight-->' + window.innerHeight);
         console.log('document.height-->' + document.documentElement.clientHeight);
         var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
         console.log('scrollTop-->' + scrollTop)
