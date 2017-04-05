@@ -4,6 +4,15 @@
     <button (click)="createHelloWorldComponent()">Create Hello World</button>
     <button (click)="createWorldHelloComponent()">Create World Hello</button>
 
+   
+    <a [routerLink]="['/tearable']" class="likeabutton">Navigate to Tearable cloth</a>
+
+    <!--<button (click)="createWorldHelloComponent()">Create World Hello</button>
+
+    <button (click)="createWorldHelloComponent()">Create World Hello</button>
+
+    <button (click)="createWorldHelloComponent()">Create World Hello</button>-->
+
     <app-dynamic-component [componentData]="componentData"></app-dynamic-component>
 </div>
 
