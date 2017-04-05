@@ -136,9 +136,7 @@ Point.prototype.resolve_constraints = function () {
 
 Point.prototype.attach = function (point) {
 
-    this.constraints.push(
-        new Constraint(this, point)
-    );
+    this.constraints.push(new Constraint(this, point) );
 };
 
 Point.prototype.remove_constraint = function (constraint) {
