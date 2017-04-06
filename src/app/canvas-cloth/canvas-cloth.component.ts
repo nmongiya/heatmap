@@ -18,7 +18,7 @@ export class CanvasClothComponent implements OnInit {
   boundsx;
   boundsy;
 
-  mouse:Mouse;
+  mouse: Mouse;
   physics_accuracy = 3;
   mouse_influence = 20;
   mouse_cut = 5;
@@ -40,11 +40,11 @@ export class CanvasClothComponent implements OnInit {
     this.mouse.y = 0;
     this.mouse.px = 0;
     this.mouse.py = 0;
-    
-     
-   }
 
-  
+
+  }
+
+
 
 
 
@@ -57,10 +57,10 @@ export class CanvasClothComponent implements OnInit {
     this.canvas.width = 560;
     this.canvas.height = 350;
 
-    this.canvas.addEventListener('mousedown', this.canvasMouseDown);
-    this.canvas.addEventListener('onmouseup', this.canvasMouseUp);
-    this.canvas.addEventListener('mousemove', this.canvasMouseMove);
-    this.canvas.addEventListener('contextmenu', this.oncontextmenu);
+    this.canvas.addEventListener('mousedown', this.canvasMouseDown.bind(this));
+    this.canvas.addEventListener('onmouseup', this.canvasMouseUp.bind(this));
+    this.canvas.addEventListener('mousemove', this.canvasMouseMove.bind(this));
+    this.canvas.addEventListener('contextmenu', this.oncontextmenu.bind(this));
 
     this.start();
   }
@@ -82,7 +82,13 @@ export class CanvasClothComponent implements OnInit {
     this.cloth.update();
     this.cloth.draw();
 
-    //this.requestAnimFrame(update);
+    // requestAnimationFrame(()=>this.update);
+
+    // requestAnimFrame(()=> this.update);
+  }
+
+  requestAnimFrame() {
+
   }
 
   oncontextmenu(e) {
@@ -97,13 +103,15 @@ export class CanvasClothComponent implements OnInit {
     this.mouse.py = this.mouse.y;
     var rect = this.canvas.getBoundingClientRect();
     this.mouse.x = e.clientX - rect.left;
-      this.mouse.y = e.clientY - rect.top;
-      e.preventDefault();
+    this.mouse.y = e.clientY - rect.top;
+    e.preventDefault();
   }
 
   canvasMouseUp(e) {
     this.mouse.down = false;
     e.preventDefault();
+
+    // this.start();
   }
 
   canvasMouseDown(e) {
@@ -113,8 +121,8 @@ export class CanvasClothComponent implements OnInit {
     this.mouse.py = this.mouse.y;
     var rect = this.canvas.getBoundingClientRect();
     this.mouse.x = e.clientX - rect.left;
-      this.mouse.y = e.clientY - rect.top;
-      this.mouse.down = true;
+    this.mouse.y = e.clientY - rect.top;
+    this.mouse.down = true;
     e.preventDefault();
   }
 

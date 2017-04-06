@@ -11,6 +11,7 @@ import { DynamicComponentComponent } from './dynamic-component/dynamic-component
 import { HelloWorldComponentComponent } from './hello-world-component/hello-world-component.component';
 import { WorldHelloComponentComponent } from './world-hello-component/world-hello-component.component';
 import { CanvasClothComponent } from './canvas-cloth/canvas-cloth.component';
+import { LightingParticlesComponent } from './lighting-particles/lighting-particles.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CanvasClothComponent } from './canvas-cloth/canvas-cloth.component';
     DynamicComponentComponent,
     HelloWorldComponentComponent,
     WorldHelloComponentComponent,
-    CanvasClothComponent
+    CanvasClothComponent,
+    LightingParticlesComponent
   ],
   imports: [
     BrowserModule,
