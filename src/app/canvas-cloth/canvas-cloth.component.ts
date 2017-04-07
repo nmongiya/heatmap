@@ -75,7 +75,7 @@ export class CanvasClothComponent implements OnInit {
     this.update();
   }
 
-  update() {
+  update = ()=> {
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -84,12 +84,10 @@ export class CanvasClothComponent implements OnInit {
 
     // requestAnimationFrame(()=>this.update);
 
-    // requestAnimFrame(()=> this.update);
+    requestAnimationFrame(this.update);
   }
 
-  requestAnimFrame() {
 
-  }
 
   oncontextmenu(e) {
     e.preventDefault();

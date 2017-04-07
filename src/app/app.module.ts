@@ -12,6 +12,7 @@ import { HelloWorldComponentComponent } from './hello-world-component/hello-worl
 import { WorldHelloComponentComponent } from './world-hello-component/world-hello-component.component';
 import { CanvasClothComponent } from './canvas-cloth/canvas-cloth.component';
 import { LightingParticlesComponent } from './lighting-particles/lighting-particles.component';
+import { MotionGraphicComponent } from './motion-graphic/motion-graphic.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LightingParticlesComponent } from './lighting-particles/lighting-partic
     HelloWorldComponentComponent,
     WorldHelloComponentComponent,
     CanvasClothComponent,
-    LightingParticlesComponent
+    LightingParticlesComponent,
+    MotionGraphicComponent
   ],
   imports: [
     BrowserModule,

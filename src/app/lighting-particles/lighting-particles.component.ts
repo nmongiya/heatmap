@@ -39,8 +39,8 @@ export class LightingParticlesComponent implements OnInit {
       this.canvas.style.top = (window.innerHeight - 500) / 2 + 'px';
 
 
-    this.draw();
-    requestAnimationFrame(()=>this.draw)
+    this.loop();
+    //requestAnimationFrame(()=>this.draw)
 
   }
 
@@ -48,10 +48,11 @@ export class LightingParticlesComponent implements OnInit {
     return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
   }
 
-  loop()
-  {
+ 
+
+  loop = () =>{
     this.draw();
-    requestAnimationFrame(this.loop);
+    requestAnimationFrame(this.loop)
   }
 
   draw() {
