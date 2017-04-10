@@ -1,45 +1,19 @@
-import { sphere } from './sphere';
-import { closeValue } from './closeValue';
-import { camera } from './camera';
-import { Component, OnInit } from '@angular/core';
+import { vertex3d } from './vertex3d';
+export class sphere {
 
-@Component({
-  selector: 'app-motion-graphic',
-  templateUrl: './motion-graphic.component.html',
-
-})
-export class MotionGraphicComponent implements OnInit {
-
-  camera:camera;
-  canvas;
-  s = [];
-  sphereNum = 20;
-  charsLength = 0;
-  charCounter = 0;
-  bufferImages = {};
-  bufferCanvases = {};
-  strokeColor;
-  backgroundColor;
-  vibrateFlag;
-  canvasWidth;
-  canvasHeight;
-  ctx;
-  textSet = [
-    { text: "WEBSPHERE", sphereRadius: 140, sphereSpace: 80, unitTime: 100, time: 1000 },
-    { text: "THIS_IS", sphereRadius: 120, sphereSpace: 70, unitTime: 120, time: 4000 },
-    { text: "EXPERIMENTAL", sphereRadius: 120, sphereSpace: 70, unitTime: 50, time: 2000 },
-    { text: "TYPEFACE", sphereRadius: 120, sphereSpace: 70, unitTime: 100, time: 4000 },
-    { text: "BASED_ON", sphereRadius: 100, sphereSpace: 60, unitTime: 100, time: 3000 },
-    { text: "HELVETICA", sphereRadius: 140, sphereSpace: 80, unitTime: 100, time: 2000 },
-    { text: "@@@@@@@@", sphereRadius: 60 + Math.random() * 60, sphereSpace: 200, unitTime: 100, time: 4000 },
-    { text: "MOVABLE", sphereRadius: 120, sphereSpace: 70, unitTime: 100, time: 2000 },
-    { text: "AND", sphereRadius: 100, sphereSpace: 60, unitTime: 150, time: 3500 },
-    { text: "PROGRAMABLE", sphereRadius: 120, sphereSpace: 70, unitTime: 50, time: 2000 },
-    { text: "!!!!!!!", sphereRadius: 100, sphereSpace: 60, unitTime: 100, time: 3500 },
-    { text: "HACK_ME!", sphereRadius: 140, sphereSpace: 80, unitTime: 100, time: 2500 },
-    { text: "@@@@@@@@", sphereRadius: 60 + Math.random() * 60, sphereSpace: 200, unitTime: 100, time: 4000 }
-  ];
-  chars = {
+    flag = true;
+    type = "_";
+    particleNum;
+    center = { x: 0, y: 0, z: 0 };
+    targetCenter;
+    radius = 0;
+    targetRadius;
+    degree;
+    freeDegreeSpeed;
+    charsMap;
+    veticies;
+    vibrateFlag;
+    chars = {
     A: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAoVJREFUeNrsnO2RgkAQRGXrEsAQMAQJgVwMwRgMwVg0BA1BQpAQOErrPsrjdgfKnR3gzW/h5NE99M7iZW3brihZORAAC1jAAhawgAUCYAELWMACFrBAACxgAQtYwAIWCIAFLGABa0DtdrtMXGVZJvyqWfJ9w81mU9e1/PP3+z3P8yUqq2maQaS6ul6vC7Xh+XweeshyYQ2VFcqKfshMGnz3gBtx1O12K4piWcoabahU4pokrBGdbrmwUvV4o7C2221VVdjwJ456YOWPsta2nE0PdrLqxGXNiR82YQVXf8uC5fdRMEYlgZUslK7X665teUYLz8+YGj+k6VldUPKQyr/KWjR1Bj343do96SFJNE2mLEnD8nculAWsgc8yISz9Z6KzJqvfjKylLWdNVvIGD6xX6/nFBayiV2X/ncqT1yYPq36Ufwltdt3jTMnK+CLRHKwX3wFrACxTK0TtqUNw7+vv9wkeorYzpqqsoAp6g1UQhJq4nCkP9pouCEtt/KAKK3hVvanKH7U0e7wtG/aKyFCPb7XqOSmOVKfTSeESnB1ZaWZd6zaM2obnBmsGytILpeNexZKXws6YkrIU7rzCM3E+sBSiKcqy17PKslTgFftaNGA1TeN/a+EZ0/f7vecMh8Mh+Icul0twbWQ9wXfxOvg1qqryn0RyLcfjcfIJXmLA4GhBIpnYTteAJWm9wHqnsiSz0Ng7Y9Fh+V/Fks9hhJ07qricBQ+uBDv1win7tGFJgrVkTbcIWBJlCS0WVF/sHB8dluRWC2FJxDXip7FWYAnvs3C0InRiPHFl/CNqc1MHYAGLAhawgAUsYAGLAhawgAUsYAGLAhawgAUsYAGLAtZb6lOAAQB0jf7CahauSAAAAABJRU5ErkJggg==",
     B: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAoJJREFUeNrs3O1xolAUxvFNhgZswRa0BCmBFrAEKAFK0BKkBC0BS9AStAT2ybLjMPvFo0tOuJf/+ZAxMzAJv7n38tyX5KPrul+UrT4hAAsssMACCywIwAILLLDAAgsCsMACCyywwIIALLDACqgSnx+TpunpdHrjxsVisVqt+q/L5XKz2ejzj2l1LqWHHOsXzrJst9t1P1HhYfWlVnY8Hp2xQh2zrterunZZlgzw1qrrervdgmWt/Z8Cy1rqjPf7HSxTScqncUUSSn2wkuk8cJ88+8/n8/mlnqWXo2553B4/lh5V0WnYuZqmUZORguV2B6zpdkM1tDzP27Y1EjiM8QGMWUVRsOrwQve0XPbeRD02LE0DaVkj1+hz9SCxfNJ5JFjG6PDduQGsuLDUB+u6fnpZlmUOy83JZI3UoJQGlOAtY5bi67zmhtJJ07RnevU96PAq/KpA1+CHs6Lb7cYavElKc2+3zbGAsdRaL5eLw0sweCwZHQ4H5w3XULH0Eliv1w6T50i6Yb91aElhYP2tsizdtg5jWHVQcPVpX5Es0ah9qVfOCEtR4BH/lAkUoIqisK/8eTSu6ST4IdajlM6N8z7FiLkneBFUVWVpX29MKiMcs+SVZZlxrYIB3rq+TsuaUIEFFlhgWdcYwBoZ67s3+sPYN2yaBqznIXO/36dparx+Rif/+q2w4bcvJXJjyo8ESzT/s0zMKZrx549gfR2ldNjpiQFL47rPudPPCKSGB8LBeiLF9v3zEb2qqrZtPTelk+CYFNPzPNe7z/8UcxJEI3r8TbnClOdJkH/qg39EPbucBRZYYIFFgQUWWGCBBRYFFlhggQUWWBRYYIEFFlgzqd8CDAAuDkL9BnlXDAAAAABJRU5ErkJggg==",
     C: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAn9JREFUeNrsnO2RgkAMhs8bG6AFLEFLoAVaoAVb0BKwBCgBSvBK8ErQErgczDg3fjA5YcOyPu/PG5fbPCZLCImLpmk+kE6fIAAWsIAFLGABCwTAAhawgAUsYIEAWMACFrCABSwQAMuJll7t5rvVzR/X63UURcD6VVmWdV1/ter5WJIkQi1pNdlem4l0Pp93u90LLhPHsSyU5fZ7ngZWnucDI0uWF0URPqwsy8YKC7lUyLBGJGXPyxSWBI6LY1eOsNBgyZHsLgM4nU4GJtglpYfD4XK5OLr4fr83MGFh1kWzWq3uE84R5dRzTZNSSTiVpMTgNE0lmeoSevFHfXI7+t1jGliSo2s+Jjl6VVV/HUTs32w2ykelQDJ45TPKw3NabnaatfIvArkbdmH1mrVC0JMv3uhuqImRZ94noCU836WeNTxj8KREYwGrv/aiPPiplOJZ1OCRdzX4njCcspo8L1hZK8KQMwtYCFjAAhawgAUsBCxgAQtYwBpbdV0vFFK+ncSz8CxgAcut3PUqBQjLoumDMJwfLE/eJ88D1vD3ycMbAOYUhhpePae4vhcuBFgaM8qyfMhL2bkbtXJrhk0zm7J7734C4Hg8KhGkaeraiqU/ntU5kUScmN0B+lcDrsX7fbOhAU2n5JAz0WBOzC7PctqssN1uLXq4AhhHsXErU88Sk+T7d3HloiiMWgONR+jk8B53/3meBztvKPEyYupoSWqysd/h8SjEJQV7ixlpUVVVr2VGssrYoa6yG6F7Vqi6/lRBzzNNN2Qhug6MTaKJYd08SN9XF+JWnuzQI1jUs4AFLAQsYAELWMACFgIWsIAFLGABCwELWMACFrDeVT8CDACBApVLFWwP8gAAAABJRU5ErkJggg==",
@@ -78,200 +52,180 @@ export class MotionGraphicComponent implements OnInit {
     "7": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAh5JREFUeNrs21uRwkAQhWGg1gBIAAmxgAUsYAEkoAELWEBCIiErgZGQbS5VvHUGiu05Q/39nIXZr/o0MyFMh2GYUHk1gwAssMACCyywIAALLLDAAgssCMACCyywwAILArDAAgus76yfmLfpum6/3//TizdNczgcvgcrpXQ+n4khM4sCCyywwAKLTemnaz6fr9fr9/7291bOBcvlMua/mOo/+bdarXysvu9jvNRjaPt+X8oOOmGdNRm0yw+vpftyuYQtRrqzrKf8E+VutzOvuAUpt9V2u/UXH9lW1+EuK2UQvpRRBi9JN4bH49G/wDIYvSbZtvKHkQ3++FWJdtbpdEop+RmMX5XoptTfiN53DJwNH23lb0SLtJUo1uho32w2ZVamNtrbtvUX3DRNqbXNaKtaB7x9Ai4WC/+asHsM6jNrtK0sg6Wk6sMqmEEtrK7r/B3DfeMOVlZbWQAthmA99qLKGRTCGj0M3qc7WNfKecaGzqomgypYVWRQBSsng2U3DULHHTvi+J1V6gaWXGfZXnQ0gwptJYE1OtpFBpYEVs7AEsEqPLNy7slMbnco6aysDIoMrPJYNt1ryWB5rJyBFfrohyzW6CN9dNZrGQTr2Vk5lxHDmo6E1cRQp61KYqVbVTSwSmJlTnc664XpXvArVa0YgvXhksKq4OcodBZYYFFggQUWWGCBRYEFFlhggQUWBRZYYIEFFlgUWO/UnwADAKM+9iPbiqjtAAAAAElFTkSuQmCC",
     "8": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAwRJREFUeNrsm+FxgkAQhTGTBmwhLWAJtGALWoIt2IKWoCVACVqClqAlkDc4kxhEboHL3rG8/eHEhGPIN7t7u2+PWVmWCU1mH0RAWIRFWIRFWIRFBIRFWIRFWIRFWERAWIRFWIRFWIRFBIRFWIQ1IvuM4SGu12tRFOfzGT/g836///zpq7I0TfGZZRk+Qz5oGdR2ux0QyJ8WF2NJqKcNBut0OnXC9GxwNCyfCix4x3w+HxgT+i6WBCHlK4co80r0o89vzs3z3CwspBu/sLA/2oTlMQCDBKNqUXo8HiWXIfdnlQmrqv1+b63Out1ukufZbrfPq/BVsgo3NxWGyMSSmvN14XK5jCTN64Uh+hjnNavVSvjLHje31kg31vS9C33jsN6V9ZHw+ojcrahnUfzzoWoR1m9f0huWc7Pz3kUFhiX5fxqhAOKzdjoJWA91uEfj4uxmULUOV8eik5UljXRNApXU/WoqzUz53Z3FYuFMQPCUhw8WlTkvPhwONgcWl8vFY8ggtHVa6GCyMgLNCy+QUh5bhBlYwB0G1uuIPk2fCjwKg0nkhEjmOoFhCVW9d/12TSM0CwvhI9HzIozERJ+Ux2obt7K8G/bOUy3+ZROWpHrELonL8sqQmCRFBq43CMspPLy6CaLMyQvBaA2WZHDfWGRKOko0BqamO84uDx7UmPuR5pzOJRzfjkaiccJq2SWdG6iOyhqRrNziPkNU1lHCGqJ2Bj5Kqg/rX4fGzhjnKGzCozDC+lOahx0dmfKslrwjqdGsjcJ6b//OnXSKsBp5gRQn0tKuRXJkVKkQ01QdJMFS09eFB5x1JEDVIet6vZa4Sach62OflQyuR+ZZ3l+vaHRGO7Kyl1FFLVuZ1eD9ju8T2+/uCJV4oW02G/tDVi8v8SiTCjmRhn/1jkcsVJvoxHLWAfmr6xjxMbjXPxISoM561+WgcG8vqVBJpZV530w7WXhYNTW11jMDkNJ50dHBovhHWIRFIyzCIizCIizCohEWYREWYREWYdEIi7AIi7AIa5L2LcAAzvxzglhLcPIAAAAASUVORK5CYII=",
     "9": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAuZJREFUeNrsm/2RgjAQxQ/nGrAFLYEWsARa0BK0BFvQErQEKEFKkBKwBO6N3nmMoKwaNx+8/YNxFDLhZ3b3ZZNEdV1/0WQ2IgLCIizCIizCIiwiICzCIizCIizCIgLCIizCIizCIiwiICzCIiyP7NuFTpxOpzzPi7PhM67NX5MkGY/HcRynaTqZTGx2tLZqWZYBgby3QLbZbGz11hqsqqqewnQz1o7H41BgHQ4HeNY7DoHH0Uj4sN4nZYuXBViIO6YCLpoKGdZ6vTaboNCgWucjzV00kAXT6RRXg23CGRHsjfi1W6J0u92aJXX5A9BsgAp+v99LRspVSSF+QyUYadYzUQphJekPZOoLCUFHdumNLExoJNmtPZTm87mRxn1yw7Ise+/p1PQSoS9p3CdYN9PjeyOrM4r1JjtJ4z7BkuTBe+GpN2yFNrIk7/OyXBoiLFZKWVZ2zxRifDiwjE+k6IYDgKUj0D2D5QgU+7Akq1idcccdzeEWrM6M5s5wcwtWZ3VQr1zlnRvOZrPrUIIDLhYLhwKZ5grYR1+kXTX0uPgXx7HlnQp+SQdJzZOw/mHprFmFAAuklsslYUkNsCSrW4T1a7vd7tk9WYOTDu1ND73xCzdctjJIXkRh6VB1r0NbgkKd52drCvfLpkh46zUhRFEk+dc/3WGbsJ7opRuwWPwjLMJ6nAoIyy15oXdooCiK1Wr1+B4IhfZru1Mp1YN1OUbRe0/7SwksnVnByClP6SwrS1ZPlebnqlujBUDbT0mqYDo7/1RhSZwFqr35iKQEBpoB7oMX1mfgU8nZhM6FZgOE9aEyvNqhJ+2qg3FBhAEY7HGULMvMwtI862ShnmVw2ULz4I4dWFVVGXHGm7wZ8knWN1cu1DKgE7BgyGIvuCRGpcLis3Nl5WZxufizB8oTiS9NU4uLQ86VlcuzWZknB1KDZ6WUsAiLRliERViERViERSMswiIswiIswqIRFmERFmERVtD2I8AAVk+r365MC5oAAAAASUVORK5CYII="
-  };
+};
 
-  vibrateCV: closeValue;
-  invertCV: closeValue;
-  textSetChangerIncrement = 0;
+    constructor(arg) {
 
-  constructor() { }
+        this.flag = true;
+        this.type = "_";
+        this.particleNum = arg.particleNum;
+        this.center = { x: 0, y: 0, z: 0 };
+        this.targetCenter = arg.center;
+        this.radius = 0;
+        this.targetRadius = arg.radius;
 
-  ngOnInit() {
+        this.degree = new Array();
+        this.freeDegreeSpeed = new Array();
+        for (var j = 0; j < this.particleNum; j++) {
+            this.degree[j] = { theta: 0, phi: 0 };
+            this.freeDegreeSpeed[j] = { theta: 1 * Math.random() - 0.5, phi: 1 * Math.random() - 0.5 };
+        };
+        this.charsMap = new Object();
+        for (var i in this.chars) {
+            let myCanvas = <HTMLCanvasElement>document.getElementById(i);
+            let buffer = myCanvas.getContext("2d").getImageData(0, 0, 100, 100).data;
+            
+            this.charsMap[i] = new Array();
+            var self = this;
+            for (var j = 0; j < this.particleNum; j++) {
+                var redo = function () {
+                    var theta = Math.floor(Math.random() * 100);
+                    var phi = Math.floor(Math.random() * 100);
+                    if (buffer[(theta * 400 + (phi * 4))] == 0) {
+                        self.charsMap[i].push(
+                            {
+                                theta: theta - 50 + 360 * Math.round(Math.random() * 2) - 1,
+                                phi: phi - 50 + 360 * Math.round(Math.random() * 2) - 1
+                            }
+                        );
+                    } else {
+                        redo();
+                    };
+                };
+                redo();
+            };
+        };
+        this.charsMap["@"] = new Array();
+        for (let i = 0; i < this.particleNum; i++) {
+            this.charsMap["@"][i] = { theta: 360 * Math.random(), phi: 360 * Math.random() };
+        };
+        this.charsMap["_"] = new Array();
+        for (let i = 0; i < this.particleNum; i++) {
+            this.charsMap["_"][i] = { theta: 0, phi: 0 };
+        };
 
-    this.camera = {
-      focus: 400,
-      self: {
-        x: 0,
-        y: 0,
-        z: 0
-      },
-      rotate: {
-        x: 0,
-        y: 0,
-        z: 0
-      },
-      up: {
-        x: 0,
-        y: 1,
-        z: 0
-      },
-      zoom: 1,
-      display: {
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2,
-        z: 0
-      }
-    };
-
-    this.strokeColor = "rgba(255,255,255,0.1)";
-    this.backgroundColor = "rgba(0,0,0,1)";
-    this.vibrateFlag = false;
-
-    this.canvas = document.getElementById("motioncanvas");
-    this.canvasWidth = window.innerWidth;
-    this.canvasHeight = window.innerHeight;
-
-    this.canvas.width = this.canvasWidth;
-    this.canvas.height = this.canvasHeight;
-    this.ctx = this.canvas.getContext("2d");
-    this.ctx.strokeStyle = this.strokeColor;
-
-
-    this.vibrateCV = new closeValue(200, 500);
-    this.invertCV = new closeValue(1000, 1200);
-
-
-    for (var i in this.chars) {
-      this.charsLength++;
-      this.bufferImages[i] = new Image();
-      this.bufferImages[i].src = this.chars[i];
-      this.bufferImages[i].onload = this.imageLoad.bind(this)
-    };
+        this.veticies = new Array();
+        for (let i = 0; i < this.particleNum; i++) {
+            this.veticies[i] = new vertex3d({});
+        };
+    }
 
 
-  }
+    update() {
 
-  imageLoad() {
-    this.charCounter++;
-    if (this.charCounter === this.charsLength) {
-      this.bufferDraw();
-    };
-  }
+        for (var i = 0; i < this.charsMap[this.type].length; i++) {
+            if (this.degree[i].theta >= 30 && this.degree[i].phi >= 30) {
+                this.flag = true;
+                break;
+            } else {
+                this.flag = false;
+            };
+        };
+        this.radius = this.radius + (this.targetRadius - this.radius) / 8;
+        this.center.x = this.center.x + (this.targetCenter.x - this.center.x) / 8;
+        this.center.y = this.center.y + (this.targetCenter.y - this.center.y) / 8;
+        this.center.z = this.center.z + (this.targetCenter.z - this.center.z) / 8;
+        for (var i = 0; i < this.charsMap[this.type].length; i++) {
+            if (this.type === "@") {
+                this.charsMap[this.type][i].theta += this.freeDegreeSpeed[i].theta;
+                this.charsMap[this.type][i].phi += this.freeDegreeSpeed[i].phi;
+            };
+            this.degree[i].theta = this.degree[i].theta + (this.charsMap[this.type][i].theta - this.degree[i].theta) / (4 + 20 * Math.random());
+            this.degree[i].phi = this.degree[i].phi + (this.charsMap[this.type][i].phi - this.degree[i].phi) / (4 + 20 * Math.random());
+            if (this.vibrateFlag == true) {
+                var getPosition = this.polarToRectangle(this.degree[i].theta + 90, this.degree[i].phi, this.radius + Math.random() * 10);
+            } else {
+                var getPosition = this.polarToRectangle(this.degree[i].theta + 90, this.degree[i].phi, this.radius);
+            };
+            this.veticies[i].affineIn.vertex = {
+                x: getPosition.x,
+                y: getPosition.y,
+                z: getPosition.z
+            };
+            this.center.x
+            this.veticies[i].affineIn.position = {
+                x: this.center.x,
+                y: this.center.y,
+                z: this.center.z
+            };
+            this.veticies[i].vertexUpdate(this.veticies[i].affineIn);
+        };
 
-  setup() {
-    for (var i = 0; i < this.sphereNum; i++) {
-      this.s[i] = new sphere({ radius: 100, particleNum: 250, center: { x: 70 * i - (this.sphereNum - 1) * 70 / 2, y: 0, z: 0 } });
-    };
-  }
-
-  update() {
-    for (var i = 0; i < this.sphereNum; i++) {
-      this.s[i].update();
-    };
-  }
-
-  draw() {
-    for (var i = 0; i < this.sphereNum; i++) {
-      this.s[i].draw(this.ctx);
-    };
-  }
-
-  bufferDraw() {
-    for (var i in this.chars) {
-      var canvas = document.createElement("canvas");
-      canvas.id = i;
-      document.getElementById("buffer").appendChild(canvas);
-      let mycancas = <HTMLCanvasElement>document.getElementById(i);
-      mycancas.getContext("2d").drawImage(
-        this.bufferImages[i],
-        0,
-        0,
-        100,
-        100
-      );
-    };
-    this.start();
-  }
+    }
 
 
-  start() {
-
-    this.setup();
-
-    let myinterval = setInterval(this.executeOntimeFunc.bind(this), 1000 / 60);
-
-    this.textSetChanger();
-
-  }
-
-  executeOntimeFunc() {
-    if (this.vibrateCV.execution() > 0.8) {
-      this.vibrateFlag = true;
-    } else {
-      this.vibrateFlag = false;
-    };
-    if (this.invertCV.execution() > 0.7) {
-      this.strokeColor = "rgba(0,0,0,0.1)";
-      this.backgroundColor = "rgba(255,255,255,1)";
-    } else {
-      this.strokeColor = "rgba(255,255,255,0.1)";
-      this.backgroundColor = "rgba(0,0,0,1)";
-    };
-    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-    this.ctx.fillStyle = this.backgroundColor;
-    this.ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-    this.ctx.strokeStyle = this.strokeColor;
-    this.update();
-    this.draw();
-  }
-
-
-
-  textSetChanger() {
-    setTimeout(this.executeOntimeOut.bind(this), this.textSet[this.textSetChangerIncrement].time);
-  }
-
-
-  executeOntimeOut() {
-
-    this.textChanger(
-      this.textSet[this.textSetChangerIncrement].text,
-      this.textSet[this.textSetChangerIncrement].sphereRadius,
-      this.textSet[this.textSetChangerIncrement].sphereSpace,
-      this.textSet[this.textSetChangerIncrement].unitTime
-    );
-
-    this.textSetChangerIncrement++;
-
-    if (this.textSetChangerIncrement == this.textSet.length) {
-      this.textSetChangerIncrement = 0;
-    };
-
-    this.textSetChanger();
-  }
-
-
-  textChanger(text, sphereRadius, sphereSpace, unitTime) {
     
-    var charNum = text.length;
-    var center = new Array();
 
-    for (var i = 0; i < charNum; i++) {
-      center[i] = { x: sphereSpace * i - sphereSpace * (charNum - 1) / 2, y: 0, z: 0 };
-    };
-   
-    for (let i = charNum; i < this.s.length; i++) {
-      this.s[i].type = "_";
-    };
+    draw(ctx) {
 
-    this.changer(text, sphereRadius, sphereSpace, unitTime, center, charNum);
-  }
+        if (this.flag == true) {
+            ctx.beginPath();
+            for (var i = 0; i < this.veticies.length; i++) {
+                for (var j = i; j < this.veticies.length; j++) {
 
-  changer(text, sphereRadius, sphereSpace, unitTime, center, charNum) {
-    
-    let myf = setTimeout(this.changFunc.bind(this), unitTime, text, sphereRadius, sphereSpace, unitTime, center, charNum);
-  }
+                    var distance =
+                        (this.veticies[i].affineOut.x - this.veticies[j].affineOut.x) * (this.veticies[i].affineOut.x - this.veticies[j].affineOut.x) +
+                        (this.veticies[i].affineOut.y - this.veticies[j].affineOut.y) * (this.veticies[i].affineOut.y - this.veticies[j].affineOut.y);
 
-  changFunc(text, sphereRadius, sphereSpace, unitTime, center, charNum){
-    let changeIncrement = 0;
-    this.s[changeIncrement].type = text[changeIncrement];
-    this.s[changeIncrement].targetCenter = center[changeIncrement];
-    this.s[changeIncrement].targetRadius = sphereRadius;
-    changeIncrement++;
+                    if (distance <= this.radius * 3) {
+                        ctx.moveTo(
+                            this.veticies[i].affineOut.x,
+                            this.veticies[i].affineOut.y
+                        );
+                        ctx.lineTo(
+                            this.veticies[j].affineOut.x,
+                            this.veticies[j].affineOut.y
+                        );
+                    };
+                };
+            };
+            ctx.closePath();
+            ctx.stroke();
+        };
+    }
 
-    if (changeIncrement < charNum) {
-      this.changer(text, sphereRadius, sphereSpace, unitTime, center, charNum);
-    };
 
-  }
+    dtr(v) {
+        return v * Math.PI / 180;
+    }
+
+    polarToRectangle(dX, dY, radius) {
+        var x = Math.sin(this.dtr(dX)) * Math.cos(this.dtr(dY)) * radius;
+        var y = Math.sin(this.dtr(dX)) * Math.sin(this.dtr(dY)) * radius;
+        var z = Math.cos(this.dtr(dX)) * radius;
+        return { x: y, y: z, z: x };
+    }
+
+    rectangleToPolar(x, y, z) {
+
+        let xD;
+        let yD;
+        let zD;
+
+
+        if (x == 0) {
+            xD = 0.001;
+        }
+        else {
+            xD = x;
+        }
+        if (y == 0) {
+            yD = 0.001;
+        }
+        else {
+            yD = y;
+        }
+        if (z == 0) {
+            zD = 0.001;
+        }
+        else {
+            zD = z;
+        }
+
+
+        var radius = Math.sqrt(xD * xD + yD * yD + zD * zD);
+        var theta = Math.atan(zD / Math.sqrt(xD * xD + yD * yD));
+        var phi = Math.atan(yD / xD);
+        return { x: theta * (180 / Math.PI), y: phi * (180 / Math.PI), r: radius }
+    }
 }
