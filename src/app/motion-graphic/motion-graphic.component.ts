@@ -12,7 +12,7 @@ export class MotionGraphicComponent implements OnInit {
 
   camera:camera;
   canvas;
-  s = [];
+  s: sphere[] = [];
   sphereNum = 20;
   charsLength = 0;
   charCounter = 0;
@@ -190,11 +190,13 @@ export class MotionGraphicComponent implements OnInit {
 
     let myinterval = setInterval(this.executeOntimeFunc.bind(this), 1000 / 60);
 
-    this.textSetChanger();
+    //this.textSetChanger();
 
   }
 
+  
   executeOntimeFunc() {
+    
     if (this.vibrateCV.execution() > 0.8) {
       this.vibrateFlag = true;
     } else {

@@ -9,6 +9,8 @@ export class affine
 
     constructor(camera)
     {
+        this.world = new world();
+        this.view = new view();
         this.camera = {
             focus: 400,
             self: {

@@ -1,4 +1,9 @@
 export class rotate {
+
+    constructor()
+    {
+        
+    }
     x(p, rotate) {
         return {
             x: p.x,

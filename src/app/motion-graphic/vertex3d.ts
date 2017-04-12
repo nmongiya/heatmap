@@ -61,14 +61,14 @@ export class vertex3d {
     }
 
     vertexUpdate(affineIn) {
-        // if (affineIn !== undefined && affineIn!== null)
-        // {
-        //     this.affineOut = this.affine.process(affineIn.vertex,
-        //         affineIn.size,
-        //         affineIn.rotate,
-        //         affineIn.position,
-        //         this.camera.display);
-        // }
+        if (affineIn !== undefined && affineIn!== null)
+        {
+            this.affineOut = this.affine.process(affineIn.vertex,
+                affineIn.size,
+                affineIn.rotate,
+                affineIn.position,
+                this.camera.display);
+        }
 
        
     }

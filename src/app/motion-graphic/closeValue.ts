@@ -41,8 +41,12 @@ export class closeValue {
     }
 
     execution() {
-        if (this.flag == 0) { return this.init() }
-        else if (this.flag == 1) { return this.update() };
+        if (this.flag == 0) {
+            return this.init()
+        }
+        else if (this.flag == 1) {
+            return this.update()
+        };
     }
 
 

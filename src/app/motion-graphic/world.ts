@@ -4,6 +4,11 @@ import { rotate } from './rotate';
 export class world
 {
     rotate:rotate;
+
+    constructor()
+    {
+        this.rotate = new rotate();
+    }
     
     size(p, size)
     {
