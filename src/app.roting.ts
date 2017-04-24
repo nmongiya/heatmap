@@ -4,6 +4,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { GKCHeatMapComponent } from './app/GKCHeatMap/GKCHeatMap.component';
 import { LightingParticlesComponent } from './app/lighting-particles/lighting-particles.component';
 import { MotionGraphicComponent } from './app/motion-graphic/motion-graphic.component';
+import { AsyncComponent } from './app/async/async.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/app-first-component', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const appRoutes: Routes = [
     { path: 'tearable', component: CanvasClothComponent },
     { path: 'particle', component: LightingParticlesComponent },
     { path: 'motion', component: MotionGraphicComponent },
+    { path: 'asyc', component: AsyncComponent },
     
 ];
 

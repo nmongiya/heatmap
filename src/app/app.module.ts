@@ -13,6 +13,7 @@ import { WorldHelloComponentComponent } from './world-hello-component/world-hell
 import { CanvasClothComponent } from './canvas-cloth/canvas-cloth.component';
 import { LightingParticlesComponent } from './lighting-particles/lighting-particles.component';
 import { MotionGraphicComponent } from './motion-graphic/motion-graphic.component';
+import { AsyncComponent } from './async/async.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MotionGraphicComponent } from './motion-graphic/motion-graphic.componen
     WorldHelloComponentComponent,
     CanvasClothComponent,
     LightingParticlesComponent,
-    MotionGraphicComponent
+    MotionGraphicComponent,
+    AsyncComponent
   ],
   imports: [
     BrowserModule,
