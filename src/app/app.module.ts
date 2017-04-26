@@ -14,6 +14,7 @@ import { CanvasClothComponent } from './canvas-cloth/canvas-cloth.component';
 import { LightingParticlesComponent } from './lighting-particles/lighting-particles.component';
 import { MotionGraphicComponent } from './motion-graphic/motion-graphic.component';
 import { AsyncComponent } from './async/async.component';
+import { AbstractCanvasComponent } from './abstract-canvas/abstract-canvas.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AsyncComponent } from './async/async.component';
     CanvasClothComponent,
     LightingParticlesComponent,
     MotionGraphicComponent,
-    AsyncComponent
+    AsyncComponent,
+    AbstractCanvasComponent
   ],
   imports: [
     BrowserModule,
