@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+// import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+
 import { AppComponent } from './app.component';
 import { GKCHeatMapComponent } from './GKCHeatMap/GKCHeatMap.component';
 import { DebouceComponent } from './debouce/debouce.component';
@@ -15,6 +17,8 @@ import { LightingParticlesComponent } from './lighting-particles/lighting-partic
 import { MotionGraphicComponent } from './motion-graphic/motion-graphic.component';
 import { AsyncComponent } from './async/async.component';
 import { AbstractCanvasComponent } from './abstract-canvas/abstract-canvas.component';
+import { MultiselectComponent } from './multiselect/multiselect.component';
+import { FilterPip } from './filter-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -28,13 +32,16 @@ import { AbstractCanvasComponent } from './abstract-canvas/abstract-canvas.compo
     LightingParticlesComponent,
     MotionGraphicComponent,
     AsyncComponent,
-    AbstractCanvasComponent
+    AbstractCanvasComponent,
+    MultiselectComponent,
+    FilterPip
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
+    // MultiselectDropdownModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

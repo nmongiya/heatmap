@@ -1,3 +1,4 @@
+import { MultiselectComponent } from './app/multiselect/multiselect.component';
 import { CanvasClothComponent } from './app/canvas-cloth/canvas-cloth.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
@@ -13,7 +14,8 @@ const appRoutes: Routes = [
     { path: 'particle', component: LightingParticlesComponent },
     { path: 'motion', component: MotionGraphicComponent },
     { path: 'asyc', component: AsyncComponent },
-    
+    { path: 'multiselect', component: MultiselectComponent },
+
 ];
 
 export const appRoutingProviders: any[] = [

@@ -1,26 +1,89 @@
+import { ObservableInput } from 'rxjs/Observable';
 import { document } from '@angular/platform-browser/src/facade/browser';
-import { Component, Input, OnInit } from '@angular/core';
+import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeatMapVO } from './vo/HeatMapVO';
 import { HelloWorldComponentComponent } from './hello-world-component/hello-world-component.component';
 import { WorldHelloComponentComponent } from './world-hello-component/world-hello-component.component';
+import { Observable, Subscription } from 'rxjs/Rx';
 
+declare var LoremIpsum: any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 
 
 export class AppComponent implements OnInit {
   title = 'app works!';
+  public items: Observable<Array<any>>;
+  public _selectedItems: Array<any> = [];
+  public watchedItems: Array<any>;
+  private _items: Array<any>;
+  private _lipsum: any;
 
   private _heatMapData = [];
   componentData = null;
 
   __defaultMeasure;
+
+
+  constructor(private changeRef: ChangeDetectorRef, private appRef: ApplicationRef) {
+
+    this._lipsum = new LoremIpsum();
+    this._items = [];
+    this.items = Observable.of(this._items);
+    this.items.subscribe(res => { console.log("Items changed"); this.watchedItems = res; });
+  }
+
+
+  get selectedItems(): any {
+    return this._selectedItems;
+  };
+
+  createItems() {
+    this._items.length = 0;
+    var max: number = 20;
+    var min: number = 10;
+    var numItems: number = Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log("Adding " + numItems.toString() + " items");
+    max = 6;
+    min = 3;
+    var i: number;
+    for (i = 0; i < numItems; i++) {
+      var numWords: number = Math.floor(Math.random() * (max - min + 1)) + min;
+      var label: string = this._lipsum.generate(numWords);
+      this._items.push({ label: label, value: i.toString() });
+      console.log(label);
+    }
+
+    // Randomly choose a few items
+    this.randomSelect();
+  }
+
+  randomSelect() {
+    var numItems: number = this.getRandomInt(0, this._items.length) + 1;
+    var min: number = 0;
+    var max: number = this._items.length - 1;
+    var toSelectIndexes: Array<number> = [];
+    for (var j: number = 0; j < this.getRandomInt(1, numItems); j++) {
+      var randIndex: number = this.getRandomInt(min, max);
+      var arrIndex = toSelectIndexes.indexOf(randIndex);
+      if (arrIndex == -1) {
+        toSelectIndexes.push(randIndex);
+        this._selectedItems.push(this._items[randIndex]);
+      }
+    }
+  }
+
+  getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
 
   createHelloWorldComponent() {
     this.componentData = {
@@ -41,6 +104,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+
+    this.createItems();
 
     let _heatMapDataVO: HeatMapVO = new HeatMapVO();
     _heatMapDataVO.x = 132;
