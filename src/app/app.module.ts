@@ -19,6 +19,7 @@ import { AsyncComponent } from './async/async.component';
 import { AbstractCanvasComponent } from './abstract-canvas/abstract-canvas.component';
 import { MultiselectComponent } from './multiselect/multiselect.component';
 import { FilterPip } from './filter-pipe.pipe';
+import { NgzoneComponent } from './ngzone/ngzone.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FilterPip } from './filter-pipe.pipe';
     AsyncComponent,
     AbstractCanvasComponent,
     MultiselectComponent,
-    FilterPip
+    FilterPip,
+    NgzoneComponent
   ],
   imports: [
     BrowserModule,
