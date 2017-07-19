@@ -1,0 +1,41 @@
+<!--The whole content below can be removed with the new code.-->
+
+<!-- 
+<textarea id="textA" [(ngModel)] = "str"></textarea> -->
+<h1>Please Input your text this format => 00:00</h1>
+
+
+<div class="clock">
+  <input id="inputBox" #textbox type="text" [(ngModel)]="str" required>
+  <button class="myButton" (click)="addItem()">Submit</button>
+  <div>
+    <span id="hour1" style="position:absolute;left:25px;top:25px">0</span>
+    <span id="hour2" style="position:absolute;left:50px;top:50px">0</span>
+    <span id="hour3" style="position:absolute;left:75px;top:75px">0</span>
+    <span id="hour4" style="position:absolute;left:50px;top:100px">0</span>
+    <span id="hour5" style="position:absolute;left:25px;top:125px">0</span>
+    <span id="hour6" style="position:absolute;left:0;top:150px">0</span>
+    <span id="hour7" style="position:absolute;left:-25px;top:125px">0</span>
+    <span id="hour8" style="position:absolute;left:-50px;top:100px">0</span>
+    <span id="hour9" style="position:absolute;left:-75px;top:75px">0</span>
+    <span id="hour10" style="position:absolute;left:-50px;top:50px">0</span>
+    <span id="hour11" style="position:absolute;left:-25px;top:25px">0</span>
+    <span id="hour12" style="position:absolute;left:0;top:0">0</span>
+  </div>
+
+
+</div>
+
+<div class="ingredients">
+  Ingredients for my recipe: <i lang="fr-FR">Poulet basquaise</i>
+  <ul>
+    <li data-quantity="1kg" data-vegetable>Tomatoes</li>
+    <li data-quantity="3" data-vegetable>Onions</li>
+    <li data-quantity="3" data-vegetable>Garlic</li>
+    <li data-quantity="700g" data-vegetable="not spicy like chili">Red pepper</li>
+    <li data-quantity="2kgs" data-meat>Chicken</li>
+    <li data-quantity="optional 150g" data-meat>Bacon bits</li>
+    <li data-quantity="optional 10ml" data-vegetable="liquid">Olive oil</li>
+    <li data-quantity="25cl" data-vegetable="liquid">White wine</li>
+  </ul>
+</div>

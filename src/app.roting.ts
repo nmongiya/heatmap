@@ -1,3 +1,4 @@
+import { FuncssComponent } from './app/funcss/funcss.component';
 import { MultiselectComponent } from './app/multiselect/multiselect.component';
 import { CanvasClothComponent } from './app/canvas-cloth/canvas-cloth.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
     { path: 'motion', component: MotionGraphicComponent },
     { path: 'asyc', component: AsyncComponent },
     { path: 'multiselect', component: MultiselectComponent },
+    { path: 'funcss', component: FuncssComponent },
 
 ];
 

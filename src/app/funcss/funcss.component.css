@@ -1,0 +1,60 @@
+h1{
+    color: blue;
+    background-color: yellow;
+    border: 1px solid black;
+    text-transform: uppercase;
+}
+
+
+span{
+    color: white;
+}
+
+span:nth-of-type(2n){
+    background-color: aquamarine;
+}
+span:nth-of-type(2n+1){
+    background-color: red;
+}
+
+.myButton
+{
+    color: red;
+}
+
+#inputBox{
+    color: blueviolet;
+}
+
+/* All elements with the attribute "data-vegetable"
+   are given green text */
+[data-vegetable] {
+  color: green;
+}
+
+/* All elements with the attribute "data-vegetable"
+   with the exact value "liquid" are given a golden
+   background color */
+[data-quantity*="2kg"] {
+  background-color: goldenrod;
+}
+
+/* All elements with the attribute "data-vegetable",
+   containing the value "spicy", even among others,
+   are given a red text color */
+[data-vegetable~="spicy"] {
+  color: red;
+}
+.ingredients
+{
+    width: 250px;
+}
+.clock
+{
+    display: inline-block;
+    position:relative;
+    height: 250px;
+    vertical-align :middle;
+    
+    margin-left: 150px;
+}

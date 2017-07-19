@@ -20,6 +20,7 @@ import { AbstractCanvasComponent } from './abstract-canvas/abstract-canvas.compo
 import { MultiselectComponent } from './multiselect/multiselect.component';
 import { FilterPip } from './filter-pipe.pipe';
 import { NgzoneComponent } from './ngzone/ngzone.component';
+import { FuncssComponent } from './funcss/funcss.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NgzoneComponent } from './ngzone/ngzone.component';
     AbstractCanvasComponent,
     MultiselectComponent,
     FilterPip,
-    NgzoneComponent
+    NgzoneComponent,
+    FuncssComponent
   ],
   imports: [
     BrowserModule,

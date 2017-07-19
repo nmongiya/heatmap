@@ -76,6 +76,30 @@ export class MultiselectComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+    let text = "262626";
+
+    var combinations = new Array(text.length);
+    combinations[0] = 1;
+    for (var i = 1; i <= text.length; i++) {
+	    let currentCharacter = text.substr(i - 1, 1);
+	    let previousCharacter = (i > 1) ? text.substr(i - 2, 1) : null;
+
+	    combinations[i] = 0;
+
+	    if (currentCharacter != '0')
+      {
+        combinations[i] += combinations[i-1];
+      }
+	    if ((previousCharacter !== null) && (previousCharacter !== '0') && (parseInt(previousCharacter + currentCharacter) <= 26))
+      {
+        combinations[i] += combinations[i - 2];
+      }
+       
+}
+
+console.log(combinations[text.length]);
     this._subscription = this.items.subscribe(res => this._items = res);
     
     this.enableFilter = true;
