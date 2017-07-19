@@ -39,3 +39,47 @@
     <li data-quantity="25cl" data-vegetable="liquid">White wine</li>
   </ul>
 </div>
+
+<p><code>span:nth-child(2n+1)</code>, <em>without</em> an <code>&lt;em&gt;</code> inside the child elements. Children 1, 3,
+  5, and 7 are selected, as expected.</p>
+
+<div class="first">
+  <span>This span is selected!</span>
+  <span>This span is not. :(</span>
+  <span>What about this?</span>
+  <span>And this one?</span>
+  <span>Another example</span>
+  <span>Yet another example</span>
+  <span>Aaaaand another</span>
+</div>
+
+<p><code>span:nth-child(2n+1)</code>, <em>with</em> an <code>&lt;em&gt;</code> inside the child elements. Children 1, 5, and
+  7 are selected. 3 is used in the counting because it is a child, but it isn't selected because it isn't a
+  <code>&lt;span&gt;</code>.</p>
+
+<div class="second">
+  <span>This span is selected!</span>
+  <span>This span is not. :(</span>
+  <em>This one is an em.</em>
+  <span>What about this?</span>
+  <span>And this one?</span>
+  <span>Another example</span>
+  <span>Yet another example</span>
+  <span>Aaaaand another</span>
+</div>
+
+<p><code>span:nth-of-type(2n+1)</code>, <em>with</em> an <code>&lt;em&gt;</code> inside the child elements. Children 1, 4, 6,
+  and 8 are selected. 3 isn't used in the counting or selected because it is an <code>&lt;em&gt;</code>, not a <code>&lt;span&gt;</code>,
+  and <code>nth-of-type</code> only selects children of that type. The <code>&lt;em&gt;</code> is completely skipped over
+  and ignored.</p>
+
+<div class="third">
+  <span>This span is selected!</span>
+  <span>This span is not. :(</span>
+  <em>This one is an em.</em>
+  <span>What about this?</span>
+  <span>And this one?</span>
+  <span>Another example</span>
+  <span>Yet another example</span>
+  <span>Aaaaand another</span>
+</div>
