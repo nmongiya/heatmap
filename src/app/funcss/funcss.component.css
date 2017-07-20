@@ -24,6 +24,7 @@ span:nth-of-type(2n+1){
 
 #inputBox{
     color: blueviolet;
+    width: 250px;
 }
 
 /* All elements with the attribute "data-vegetable"
