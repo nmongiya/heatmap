@@ -21,6 +21,7 @@ import { MultiselectComponent } from './multiselect/multiselect.component';
 import { FilterPip } from './filter-pipe.pipe';
 import { NgzoneComponent } from './ngzone/ngzone.component';
 import { FuncssComponent } from './funcss/funcss.component';
+import { FlipCoinComponent } from './flip-coin/flip-coin.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { FuncssComponent } from './funcss/funcss.component';
     MultiselectComponent,
     FilterPip,
     NgzoneComponent,
-    FuncssComponent
+    FuncssComponent,
+    FlipCoinComponent
   ],
   imports: [
     BrowserModule,
